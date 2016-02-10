@@ -16,6 +16,7 @@ var DinnerModel = function() {
 	// should return 
 	this.getNumberOfGuests = function() {
 		//TODO Lab 2
+		console.log(guests)
 		return this.guests;
 	}
 
