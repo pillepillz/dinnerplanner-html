@@ -5,6 +5,8 @@ var DinnerModel = function() {
     // and selected dinner options for dinner menu
      
     this.guests = 0
+    this.FullMenu = []
+
     this.setNumberOfGuests = function(num) {
         //TODO Lab 2
         this.guests = num
@@ -33,28 +35,72 @@ var DinnerModel = function() {
     //Returns all the dishes on the menu.
     this.getFullMenu = function() {
         //TODO Lab 2
+	return this.FullMenu;
          
     }
  
     //Returns all ingredients for all the dishes on the menu.
     this.getAllIngredients = function() {
         //TODO Lab 2
+        var ingMenu = []
+        var ingredientsMenu = this.getFullMenu();
+        for (i in ingredientsMenu){
+             ingMenu.push(ingredientsMenu[i].ingredients);
+
+        }
+        return ingMenu;
+   
+	   
     }
  
     //Returns the total price of the menu (all the ingredients multiplied by number of guests).
     this.getTotalMenuPrice = function() {
         //TODO Lab 2
+        var totalPrice = 0;
+        var fullMenu = this.getAllIngredients();
+        for(i in fullMenu){
+            for(x in fullMenu[i]){
+                totalPrice += fullMenu[i][x].price
+            }
+            
+        }
+
+        return totalPrice;
     }
  
     //Adds the passed dish to the menu. If the dish of that type already exists on the menu
     //it is removed from the menu and the new one added.
     this.addDishToMenu = function(id) {
+	var dishen = this.getDish(id);
+
+	var menu = this.getFullMenu();
+
+	for (i in menu){
+		if(dishen.type == menu[i].type){
+			this.removeDishFromMenu(menu[i].id);
+		}
+			
+	}
+	   
+
+	menu.push(dishen);
+	return menu;
+
         //TODO Lab 2 
+	
     }
  
     //Removes dish from menu
     this.removeDishFromMenu = function(id) {
         //TODO Lab 2
+	var list = this.getFullMenu();
+	for (i in list){
+		if (list[i].id == id){
+			list.splice(i);
+		}
+	}
+	
+	return list;
     }
  
     //function that returns all dishes of specific type (i.e. "starter", "main dish" or "dessert")
@@ -341,3 +387,4 @@ var DinnerModel = function() {
     ];
  
 }
+
