@@ -4,12 +4,14 @@ var DinnerModel = function() {
     //TODO Lab 2 implement the data structure that will hold number of guest
     // and selected dinner options for dinner menu
      
-    this.guests = 0
-    this.FullMenu = []
+    this.guests = 0;
+    this.FullMenu = [];
+    var observerArray=[];
 
     this.setNumberOfGuests = function(num) {
         //TODO Lab 2
         this.guests = num
+        notifyObservers(num);
     }
  
     // should return 
@@ -84,6 +86,7 @@ var DinnerModel = function() {
 	   
 
 	menu.push(dishen);
+    notifyObservers(menu);
 	return menu;
 
         //TODO Lab 2 
@@ -99,7 +102,7 @@ var DinnerModel = function() {
 			list.splice(i);
 		}
 	}
-	
+	notifyObservers(list);
 	return list;
     }
  
@@ -133,8 +136,18 @@ var DinnerModel = function() {
             }
         }
     }
+
+    this.addObserver = function(observer){
+	
+        observerArray.push(observer);
+    }
  
- 
+    var notifyObservers = function(obj){
+        for(var i=0; i<observerArray.length; i++){
+            observerArray[i].update(obj);
+        }
+
+    }
     // the dishes variable contains an array of all the 
     // dishes in the database. each dish has id, name, type,
     // image (name of the image file), description and
@@ -387,4 +400,3 @@ var DinnerModel = function() {
     ];
  
 }
-
