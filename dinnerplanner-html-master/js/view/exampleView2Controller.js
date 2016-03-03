@@ -14,10 +14,7 @@ var ExampleView2Controller = function(view, model) {
 
 
 	view.getMain.click(function(){
-		model.getAllDishes("main dish");
-		//chooseDish();
-		//searchFunction("main dish");
-		
+		model.getAllDishes("main dish")
 
 
 	});
@@ -32,14 +29,12 @@ var ExampleView2Controller = function(view, model) {
 	view.getStarter.click(function(){
 		model.getAllDishes("starter");
 
-		//searchFunction("starter");
 
 	});
 	
 	$("#getDessert").click(function(){
 		model.getAllDishes("dessert");
 
-		//searchFunction("dessert");
 
 	});
 
@@ -60,11 +55,17 @@ var ExampleView2Controller = function(view, model) {
 	this.chooseDish = function(){
 			view.matKnapp.click(function(){
 				var matId = this.getAttribute("id");
-				model.getDish(matId);
+				model.getDish(matId); 
 				$("#exampleView2").hide();
 				$("#exampleView3").show();
 
+		});
+	}
 
+	this.chooseRemove = function(){
+		view.Remove.click(function(){
+			var RemoveID = this.getAttribute("id");
+			model.removeDishFromMenu(model.getFullMenu()[RemoveID].Title);
 		});
 	}
 	

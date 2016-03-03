@@ -36,31 +36,14 @@ var ExampleView2 = function (container, model) {
 
 	this.getThePrics = function(type){
 		var ThePrice = 0;
-		for(p=0; p<model.getSelectedDish(type)[0].ingredients.length; p++){
-			ThePrice += model.getSelectedDish(type)[0].ingredients[p].price;
+		for(p=0; p<type.Ingredients.length; p++){
+			ThePrice += 1;
 
 		}
 		return ThePrice;
 	}
-	this.showinMenu = function(){
-		var showThis = "";
 	
 
-			theStarter="Starter"
-			var ThisPrice = 0;
-	
-			theMain="Main Dish";
-			var ThisPriceM = 0;
-
-
-			theDessert="Dessert";
-			var ThisPriceD = 0;
-
-		
-
-		showThis = showThis + "<TABLE border border-collapse='seperate' border-spacing='10px'><tr><th>"+theStarter+"<th> cost  <th>"+ThisPrice+"<th><button id='dish_s'>X</button><tr><th>"+theMain+"<th> cost  <th>"+ThisPriceM+"<th><button id='dish_m'>X</button><tr><th>"+theDessert+"<th> cost <th>"+ThisPriceD+"<th><button id='dish_d'>X</button></Table>"
-		return showThis;
-	}
 
 
 	this.update = function(object){
@@ -68,32 +51,28 @@ var ExampleView2 = function (container, model) {
 		this.getTotalMenuPrice.html(model.getTotalMenuPrice()*model.getNumberOfGuests());
 
 		
-		this.table.html(this.showinMenu());
-		
-		
 		try{
-			var d1 = document.getElementById('dish_s');
-		d1.addEventListener('click',function(){
-			model.removeDishFromMenu(model.getSelectedDish("starter")[0].id);
-		});
-		
-		var d2 = document.getElementById('dish_m');
-		d2.addEventListener('click',function(){
-			model.removeDishFromMenu(model.getSelectedDish("main dish")[0].id);
-		});
-		
-		var d2 = document.getElementById('dish_d');
-		d2.addEventListener('click',function(){
-			model.removeDishFromMenu(model.getSelectedDish("dessert")[0].id);
-		});
+		var showThis = "<TABLE border border-collapse='seperate' border-spacing='10px'>";
+		var totPrice = 0;
+		for(i=0; i<model.getFullMenu().length; i++){
+			showThis += "<tr><th>"+model.getFullMenu()[i].Title+"<th> cost  <th>"+this.getThePrics(model.getFullMenu()[i])+"<th><button class='removeButt' id='"+i+"'>X</button>";
+			totPrice += this.getThePrics(model.getFullMenu()[i]);
 		}
-		catch(error){
+		showThis += "</Table>";
+		this.table.html(showThis);
+
+		this.getTotalMenuPrice.html(totPrice*model.getNumberOfGuests());
+
+		this.Remove = container.find(".removeButt");
+		exampleView2Controller.chooseRemove();
 
 		}
-
-
+		catch(err){
+			console.log(err);
+		}
 
 		try{
+		if(object){
 		var name = "";
 		var loreN = ""; 
 		for(i=0; i<object.length; i++){
@@ -109,9 +88,8 @@ var ExampleView2 = function (container, model) {
 		this.matKnapp = container.find(".goDish");
 
 		exampleView2Controller.chooseDish();
-		
 		}
-
+		}
 		catch(error){
 
 		}

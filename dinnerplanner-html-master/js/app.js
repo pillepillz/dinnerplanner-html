@@ -28,7 +28,7 @@ $(function(){
  
     window.exampleView5Controller = new ExampleView5Controller(exampleView5,model);
 
-    window.exampleView6Controller = new ExampleView6Controller(exampleView6,model);
+  //  window.exampleView6Controller = new ExampleView6Controller(exampleView6,model);
     
 
 })

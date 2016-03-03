@@ -27,10 +27,9 @@ var ExampleView6 = function (container,model){
 	this.description = function(){
 		var your_menu= model.getFullMenu();
 		var info = "";
-
-		for(a=0; a < your_menu.length; a++){
-			info = info +"<div class='order'><div class='order-left'><div id='mat2'>"+ "<img src='/home/p/h/phigul/Desktop/Hemsidan/dinnerplanner-html-master/images/" + your_menu[a].image +"'>"+"</div>"+"<div class='food'>" +"<h1 class='brod'>" +your_menu[a].name +"</h1>" + "<p class='brod'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>" +"</div></div>";
-			info = info + "<div class ='order-right' id='brode'> <h2 class='brod' >Preparation</h2> " +your_menu[a].description +"</div></div>";
+			for(a=0; a < your_menu.length; a++){
+			info = info +"<div class='order'><div class='order-left'><div id='mat2'>"+ "<img style='width:200px; height:150px;' src='"+ your_menu[a].ImageURL +"'>"+"</div>"+"<div class='food'>" +"<h1 class='brod'>" +your_menu[a].Title +"</h1>" + "<p class='brod'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>" +"</div></div>";
+			info = info + "<div class ='order-right' id='brode'> <h2 class='brod' >Preparation</h2> " +your_menu[a].Description +"</div></div>";
 
 		this.getADish.html(info);
 		}

@@ -28,10 +28,10 @@ var ExampleView5 = function (container, model) {
 	var veryprice = 0;
 	var totPrice = "";
 
-	for(d=2; d>0;d--){
+	for(d=2; d>=0;d--){
 		var dishPrice = 0;
 		for(c=0; c<model.getAllIngredients()[d].length; c++){
-			dishPrice +=model.getAllIngredients()[d][c].price;
+			dishPrice +=1;
 
 		}
 	totPrice += "<div class='element'>" + dishPrice + " SEK"+ "</div>";
@@ -49,7 +49,7 @@ var ExampleView5 = function (container, model) {
 			this.hej();
 		}
 		catch(error){
-			console.log("wasup");
+
 		}
 
 
@@ -58,7 +58,7 @@ var ExampleView5 = function (container, model) {
 		var your_menu = model.getFullMenu();
 		var name2 = "";
 		for(b=0; b<your_menu.length; b++){
-			name2 += "<div class='mat'>"+ "<img id='bild' src='/home/p/h/phigul/Desktop/Hemsidan/dinnerplanner-html-master/images/" + your_menu[b].image +"'>" + "<div class='text'>"+ your_menu[b].name +"</div></div>";
+			name2 += "<div class='mat'>"+ "<img id='bild' src='"+ your_menu[b].ImageURL +"'>" + "<div class='text'>"+ your_menu[b].Title +"</div></div>";
 			this.getYourMenu.html(name2);
 		}
 	}

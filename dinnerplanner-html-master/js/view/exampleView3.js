@@ -26,12 +26,13 @@ var ExampleView3 = function (container,model) {
 	this.numberOfGuests.html(model.getNumberOfGuests());
 	var dishPrice= 0;
 	var price=0;
+
+
 	this.funk = function(type){
 		dishPrice=0;
 		price=0;
 		var text = "";
 
-		
 		this.getSelectedDish.html(type.Title);
 		this.pickedDish = type.id;
 		
@@ -62,26 +63,28 @@ var ExampleView3 = function (container,model) {
 	}
 	
 
-
 	this.update = function(object){
-		if(object){
-		menu = object;
+		console.log(object);
 
-		}
 		this.numberOfGuests.html(model.getNumberOfGuests());
 
-		try{
-		this.funk(menu);
-		this.imgFunk(menu);
+		if(typeof object === "object"){
+			if(typeof object.length === "undefined"){
+			model.setPending(object);
 		}
-		catch(error){
+		}
 
+		if(model.getPending().length>0){
+		this.funk(model.getPending()[0]);
+		this.imgFunk(model.getPending()[0]);
+		
 		}
-	
+		
 		
 		
 	
 	}
+	this.update();
 
 	model.addObserver(this);
 	

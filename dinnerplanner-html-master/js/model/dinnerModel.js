@@ -7,7 +7,21 @@ var DinnerModel = function() {
     this.guests = 0;
     this.FullMenu = [];
     var observerArray=[];
-	this.fromBase = [];
+    this.Pending = [];
+
+    this.getPending = function(){
+        return this.Pending;
+    }
+
+    this.setPending = function(obj){
+        var pendingDish = this.getPending();
+        pendingDish[0]=obj;
+        notifyObservers();
+    }
+
+    this.getNotifyObservers = function(){
+        notifyObservers();
+    }
 	
 
     this.setNumberOfGuests = function(num) {
@@ -30,7 +44,7 @@ var DinnerModel = function() {
         for(i in fullMenuList){
             if(fullMenuList[i].Category == type) {
                 slcDish.push(fullMenuList[i]);
-		console.log(slcDish);
+
             }
      
         }
@@ -85,14 +99,13 @@ var DinnerModel = function() {
 	
 	var menu = this.getFullMenu();
 
-
 	for (i in menu){
 		if(id.Category == menu[i].Category){
 			this.removeDishFromMenu(menu[i].id);
 		}
 			
+    notifyObservers();
 	}
-	   
 
 	menu.push(id);
 	return menu;
@@ -106,11 +119,11 @@ var DinnerModel = function() {
         //TODO Lab 2
 	var list = this.getFullMenu();
 	for (i in list){
-		if (list[i].id == id){
+		if (list[i].Title == id){
 			list.splice(i,1);
 		}
 	}
-	notifyObservers(list);
+	notifyObservers();
 	return list;
     }
  
@@ -123,8 +136,8 @@ var DinnerModel = function() {
 	//var apiKey = "XKEdN82lQn8x6Y5jm3K1ZX8L895WUoXN";
 	//var apiKey = "3stL5NVP4s6ZkmK5gt4dci8a4zOQRpD4";
 
-	//var apiKey = "1hg3g4Dkwr6pSt22n00EfS01rz568IR6";
-	var apiKey = "r02x0R09O76JMCMc4nuM0PJXawUHpBUL";
+	var apiKey = "1hg3g4Dkwr6pSt22n00EfS01rz568IR6";
+	//var apiKey = "r02x0R09O76JMCMc4nuM0PJXawUHpBUL";
 	//var apiKey = "H9n1zb6es492fj87OxDtZM9s5sb29rW3";
 
 	var url ="http://api.bigoven.com/recipes"+"?api_key="+apiKey+"&pg=1&rpp=12&any_kw="+type;
@@ -135,6 +148,7 @@ var DinnerModel = function() {
          cache: false,
          url: url,
          success: function (data) {
+
 			notifyObservers(data.Results);
 		}
 	});
@@ -148,8 +162,8 @@ var DinnerModel = function() {
 	//var apiKey = "XKEdN82lQn8x6Y5jm3K1ZX8L895WUoXN";
 	//var apiKey = "3stL5NVP4s6ZkmK5gt4dci8a4zOQRpD4";
 
-	//var apiKey = "1hg3g4Dkwr6pSt22n00EfS01rz568IR6";
-	var apiKey = "r02x0R09O76JMCMc4nuM0PJXawUHpBUL";
+	var apiKey = "1hg3g4Dkwr6pSt22n00EfS01rz568IR6";
+	//var apiKey = "r02x0R09O76JMCMc4nuM0PJXawUHpBUL";
 	//var apiKey = "H9n1zb6es492fj87OxDtZM9s5sb29rW3";
 
 
@@ -162,12 +176,13 @@ var DinnerModel = function() {
          cache: false,
          url: url,
          success: function (data) {
-         	notifyObservers(data);
-
+            notifyObservers(data);
          }
        });	
 
     }
+
+
     
 
     this.addObserver = function(observer){

@@ -13,12 +13,15 @@ var ExampleView3Controller = function(view, model) {
 
 	view.backbutton.click(function(){
 		model.removeDishFromMenu(view.pickedDish);
+		model.getNotifyObservers();
 		$("#exampleView2").show();
 		$("#exampleView3").hide();
 	});
 
 	$("#FrontButton").click(function(){
-		
+
+		model.addDishToMenu(model.getPending()[0]);
+		model.getNotifyObservers();
 		$("#exampleView2").show();
 		$("#exampleView3").hide();
 		
